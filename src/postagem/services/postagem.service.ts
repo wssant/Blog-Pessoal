@@ -11,13 +11,20 @@ export class PostagemService {
   ) {}
 
   async findAll(): Promise<Postagem[]> {
-    return await this.postagemRepository.find();
+    return await this.postagemRepository.find({
+      relations: {
+        tema: true,
+      },
+    });
   }
 
   async findById(id: number): Promise<Postagem> {
-    const postagem = await this.postagemRepository.findOne({
+    let postagem = await this.postagemRepository.findOne({
       where: {
         id,
+      },
+      relations: {
+        tema: true,
       },
     });
 
@@ -32,6 +39,9 @@ export class PostagemService {
       where: {
         titulo: ILike(`%${titulo}%`),
       },
+      relations: {
+        tema: true,
+      },
     });
   }
 
@@ -41,11 +51,13 @@ export class PostagemService {
 
   async update(postagem: Postagem): Promise<Postagem> {
     await this.findById(postagem.id);
+
     return await this.postagemRepository.save(postagem);
   }
 
   async delete(id: number): Promise<DeleteResult> {
     await this.findById(id);
+
     return await this.postagemRepository.delete(id);
   }
 }
