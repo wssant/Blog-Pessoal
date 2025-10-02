@@ -12,7 +12,6 @@ import { UsuarioModule } from '../usuario/entities/usuario.module';
 
 @Module({
   imports: [
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     forwardRef(() => UsuarioModule),
     PassportModule,
     JwtModule.register({
