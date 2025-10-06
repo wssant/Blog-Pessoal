@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { AppModule } from './../src/app.module';
+import { AppModule } from '../src/app.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 //criar nova suite de testes, config inicial
@@ -54,7 +54,7 @@ describe('Teste dos módulos Usuario e Auth (e2e)', () => {
 
   it('02 - Não deve cadastrar um usuário duplicado', async () => {
     return await request(app.getHttpServer())
-      .post('usuarios/cadastrar')
+      .post('/usuarios/cadastrar')
       .send({
         nome: 'Root',
         usuario: 'root@root.com',
@@ -66,9 +66,9 @@ describe('Teste dos módulos Usuario e Auth (e2e)', () => {
 
   it('03 - Deve autenticar o susário (Login)', async () => {
     const resposta = await request(app.getHttpServer())
-      .post('usuario/logar')
+      .post('/usuario/logar')
       .send({
-        usuario: 'root"root.com',
+        usuario: 'root@root.com',
         senha: 'rootroot',
       })
       .expect(200);
@@ -77,7 +77,7 @@ describe('Teste dos módulos Usuario e Auth (e2e)', () => {
 
   it('04 - Deve listar todos os usuários', async () => {
     return await request(app.getHttpServer())
-      .get('usuarios/all')
+      .get('/usuarios/all')
       .set('Authorization', `${token}`)
       .expect(200);
   });
