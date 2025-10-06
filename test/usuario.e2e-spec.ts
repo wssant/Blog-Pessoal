@@ -66,7 +66,7 @@ describe('Teste dos módulos Usuario e Auth (e2e)', () => {
 
   it('03 - Deve autenticar o susário (Login)', async () => {
     const resposta = await request(app.getHttpServer())
-      .post('/usuario/logar')
+      .post('/usuarios/logar')
       .send({
         usuario: 'root@root.com',
         senha: 'rootroot',
@@ -89,6 +89,7 @@ describe('Teste dos módulos Usuario e Auth (e2e)', () => {
       .send({
         id: usuarioId,
         nome: 'Root Atualizado',
+        usuario: 'root@root.com',
         senha: 'rootroot',
         foto: '-',
       })
